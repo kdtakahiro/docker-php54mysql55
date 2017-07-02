@@ -1,0 +1,27 @@
+version: '3'
+
+# docker exec -ti <name> bash
+
+services:
+  php54apache:
+    image: php:5.4-apache
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      - ./data/htdocs:/var/www/html
+
+  db:
+    image: mysql:5.5
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./data/mysql-conf.d:/etc/mysql/conf.d
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: bs1
+      MYSQL_USER: bs1
+      MYSQL_PASSWORD: password
+
+volumes:
+    db_data:
